@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 
 import PairChart, { PairChartLoading } from "~/components/PairChart/PairChart";
 import RecentTrades from "~/components/RecentTrades/RecentTrades";
+import Orderbook from "~/components/Orderbook/Orderbook";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,9 @@ export default function HomePage() {
         </div>
         <div className="col-span-1">
           <RecentTrades />
+        </div>
+        <div className="col-span-1">
+          <Orderbook />
         </div>
       </div>
       <PlaceOrder />

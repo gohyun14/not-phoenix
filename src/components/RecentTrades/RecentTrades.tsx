@@ -8,7 +8,7 @@ import {
 export default function RecentTrades() {
   return (
     <div className="h-min w-full rounded-[16px] bg-white shadow-[0px_10px_25px_-15px_rgba(0,0,0,0.3)]">
-      <h2 className="px-[20px] py-[15px] text-[24px] font-[300] leading-[120%] tracking-[-0.03em] text-[#575151]">
+      <h2 className="px-[20px] pb-[15px] pt-[30px] text-[24px] font-[300] leading-[120%] tracking-[-0.03em] text-[#575151]">
         Recent Trades
       </h2>
       <TradesTable />
