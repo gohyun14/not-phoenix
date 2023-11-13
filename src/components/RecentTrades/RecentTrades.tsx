@@ -5,6 +5,34 @@ import {
   ChevronDoubleUpIcon,
 } from "@heroicons/react/24/outline";
 
+const trades = [
+  {
+    time: moment().format("HH:mm:ss A"),
+    price: "30.654",
+    size: "1.012",
+  },
+  {
+    time: moment().format("HH:mm:ss A"),
+    price: "30.654",
+    size: "1.012",
+  },
+  {
+    time: moment().format("HH:mm:ss A"),
+    price: "30.654",
+    size: "1.012",
+  },
+  {
+    time: moment().format("HH:mm:ss A"),
+    price: "30.654",
+    size: "1.012",
+  },
+  {
+    time: moment().format("HH:mm:ss A"),
+    price: "30.654",
+    size: "1.012",
+  },
+];
+
 export default function RecentTrades() {
   return (
     <div className="h-min w-full rounded-[16px] bg-white shadow-[0px_10px_25px_-15px_rgba(0,0,0,0.3)]">
@@ -17,34 +45,6 @@ export default function RecentTrades() {
 }
 
 function TradesTable() {
-  const trades = [
-    {
-      time: moment().format("HH:mm:ss A"),
-      price: "30.654",
-      size: "1.012",
-    },
-    {
-      time: moment().format("HH:mm:ss A"),
-      price: "30.654",
-      size: "1.012",
-    },
-    {
-      time: moment().format("HH:mm:ss A"),
-      price: "30.654",
-      size: "1.012",
-    },
-    {
-      time: moment().format("HH:mm:ss A"),
-      price: "30.654",
-      size: "1.012",
-    },
-    {
-      time: moment().format("HH:mm:ss A"),
-      price: "30.654",
-      size: "1.012",
-    },
-  ];
-
   return (
     <table className="mt-[15px] w-full">
       <thead>

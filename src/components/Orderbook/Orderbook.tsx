@@ -3,6 +3,60 @@
 import { useState } from "react";
 import OrderbookOptions from "./OrderbookOptions";
 
+const asks = [
+  {
+    id: "ask-1",
+    price: "58.151",
+    amount1: "5.914",
+    amount2: "343.905",
+  },
+  {
+    id: "ask-2",
+    price: 58.156,
+    amount1: 19.86,
+    amount2: 1150,
+  },
+  {
+    id: "ask-3",
+    price: 58.16,
+    amount1: 56.74,
+    amount2: 3300,
+  },
+  {
+    id: "ask-4",
+    price: 58.171,
+    amount1: 96.439,
+    amount2: 5610,
+  },
+];
+
+const bids = [
+  {
+    id: "bid-1",
+    price: 58.135,
+    amount1: 5.676,
+    amount2: 329.974,
+  },
+  {
+    id: "bid-2",
+    price: 58.13,
+    amount1: 19.869,
+    amount2: 1155,
+  },
+  {
+    id: "bid-3",
+    price: 58.126,
+    amount1: 56.773,
+    amount2: 33000,
+  },
+  {
+    id: "bid-4",
+    price: 58.124,
+    amount1: 0.03,
+    amount2: 1.744,
+  },
+];
+
 export default function Orderbook() {
   const [isBookViewRightView, setIsBookViewRightView] = useState(true);
   const [bookSize, setBookSize] = useState("0.001");

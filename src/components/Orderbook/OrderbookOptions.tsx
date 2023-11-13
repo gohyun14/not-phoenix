@@ -90,7 +90,7 @@ function ChangeBookSize({
       </Select.Trigger>
 
       <Select.Content
-        className="data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade flex w-[--radix-popover-trigger-width] min-w-[65px] flex-col rounded-[8px] bg-white p-[5px] shadow-[0px_10px_25px_-15px_rgba(0,0,0,0.3)]"
+        className="data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade z-[2] flex w-[--radix-popover-trigger-width] min-w-[65px] flex-col rounded-[8px] bg-white p-[5px] shadow-[0px_10px_25px_-15px_rgba(0,0,0,0.3)]"
         position="popper"
         side="bottom"
         sideOffset={1}
