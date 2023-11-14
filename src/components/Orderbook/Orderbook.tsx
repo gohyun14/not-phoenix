@@ -106,3 +106,11 @@ function OrderTable() {
     </table>
   );
 }
+
+function AskRow() {
+  return <tr></tr>;
+}
+
+function BidRow() {
+  return <tr></tr>;
+}
