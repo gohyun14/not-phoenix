@@ -108,9 +108,9 @@ function OrderTable() {
 }
 
 function AskRow() {
-  return <tr></tr>;
+  return <tr>Askrow</tr>;
 }
 
 function BidRow() {
-  return <tr></tr>;
+  return <tr>Bidrow</tr>;
 }
