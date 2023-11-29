@@ -107,6 +107,7 @@ function OrderTable() {
   );
 }
 
+// figure out how to make this work
 function AskRow() {
   return <tr>Askrow</tr>;
 }
