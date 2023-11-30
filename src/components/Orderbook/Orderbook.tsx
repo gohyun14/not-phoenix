@@ -127,13 +127,13 @@ function OrderTable() {
     <table className="w-full px-[20px] py-[15px]">
       <thead>
         <tr className="mb-[10px] flex flex-row items-center gap-x-[10px] px-[20px] text-left">
-          <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+          <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
             Price<span className="ml-[2px] opacity-60">USDC</span>
           </th>
-          <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+          <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
             Amount<span className="ml-[2px] opacity-60">SOL</span>
           </th>
-          <th className="basis-[30%] text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+          <th className="basis-1/3 text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
             Amount<span className="ml-[2px] opacity-60">USDC</span>
           </th>
         </tr>
@@ -198,13 +198,13 @@ function AskRow({
       }
       className="group flex flex-row items-center gap-x-[10px] py-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
     >
-      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
+      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
         {(ask.amount2 / ask.amount1).toFixed(3)}
       </th>
-      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
         {ask.amount1}
       </th>
-      <th className="basis-[30%] text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+      <th className="basis-1/3 text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
         {ask.amount2}
       </th>
     </motion.tr>
@@ -240,13 +240,13 @@ function BidRow({
       }
       className="group flex flex-row items-center gap-x-[10px] py-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
     >
-      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#a8dea3]">
+      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#a8dea3]">
         {(bid.amount2 / bid.amount1).toFixed(3)}
       </th>
-      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
         {bid.amount1}
       </th>
-      <th className="basis-[30%] text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+      <th className="basis-1/3 text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
         {bid.amount2}
       </th>
     </motion.tr>
