@@ -90,6 +90,39 @@ function OrderTable() {
     2
   ).toFixed(3);
 
+  const calculateAskRowStats = (index: number | undefined) => {
+    // get reversed index of ask since asks are reversed in the rendered table
+    const askIndex = index !== undefined && asks.length - index - 1;
+
+    return (
+      askIndex !== false &&
+      asks.slice(0, askIndex + 1).reduce(
+        (acc, ask) => {
+          acc.amount1 += ask.amount1;
+          acc.amount2 += ask.amount2;
+
+          return acc;
+        },
+        { amount1: 0, amount2: 0 },
+      )
+    );
+  };
+
+  const calculateBidRowStats = (index: number | undefined) => {
+    return (
+      index !== undefined &&
+      bids.slice(0, index + 1).reduce(
+        (acc, bid) => {
+          acc.amount1 += bid.amount1;
+          acc.amount2 += bid.amount2;
+
+          return acc;
+        },
+        { amount1: 0, amount2: 0 },
+      )
+    );
+  };
+
   return (
     <table className="w-full px-[20px] py-[15px]">
       <thead>
