@@ -1,30 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import * as Tooltip from "@radix-ui/react-tooltip";
+import { motion } from "framer-motion";
+
 import OrderbookOptions from "./OrderbookOptions";
 
 const asks = [
   {
     id: "ask-1",
-    price: "58.151",
-    amount1: "5.914",
-    amount2: "343.905",
+    amount1: 5.914,
+    amount2: 343.905,
   },
   {
     id: "ask-2",
-    price: 58.156,
     amount1: 19.86,
     amount2: 1150,
   },
   {
     id: "ask-3",
-    price: 58.16,
     amount1: 56.74,
     amount2: 3300,
   },
   {
     id: "ask-4",
-    price: 58.171,
     amount1: 96.439,
     amount2: 5610,
   },
@@ -33,25 +32,21 @@ const asks = [
 const bids = [
   {
     id: "bid-1",
-    price: 58.135,
     amount1: 5.676,
     amount2: 329.974,
   },
   {
     id: "bid-2",
-    price: 58.13,
     amount1: 19.869,
     amount2: 1155,
   },
   {
     id: "bid-3",
-    price: 58.126,
     amount1: 56.773,
     amount2: 33000,
   },
   {
     id: "bid-4",
-    price: 58.124,
     amount1: 0.03,
     amount2: 1.744,
   },
@@ -82,6 +77,19 @@ export default function Orderbook() {
 }
 
 function OrderTable() {
+  const [askHoverRowIndex, setAskHoverRowIndex] = useState<number | undefined>(
+    undefined,
+  );
+  const [bidHoverRowIndex, setBidHoverRowIndex] = useState<number | undefined>(
+    undefined,
+  );
+
+  const price = (
+    (asks[0]!.amount2 / asks[0]!.amount1 +
+      bids[0]!.amount2 / bids[0]!.amount1) /
+    2
+  ).toFixed(3);
+
   return (
     <table className="w-full px-[20px] py-[15px]">
       <thead>
@@ -98,20 +106,116 @@ function OrderTable() {
         </tr>
       </thead>
 
-      <tbody className="mb-[15px] flex flex-col overflow-y-auto px-[10px]">
-        {/* {trades.map((trade, index) => (
-          <TradeRow key={index} trade={trade} />
-        ))} */}
+      <tbody className="mb-[15px] flex flex-col overflow-y-auto px-[20px]">
+        {[...asks].reverse().map((ask, index) => (
+          <AskRow
+            key={index}
+            index={index}
+            ask={ask}
+            askHoverRowIndex={askHoverRowIndex}
+            setAskHoverRowIndex={setAskHoverRowIndex}
+          />
+        ))}
+        <tr className="flex flex-row items-center gap-x-[10px] bg-[#f1f1f1] py-[5px] text-left">
+          <th className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+            {price}
+          </th>
+        </tr>
+        {bids.map((bid, index) => (
+          <BidRow
+            key={index}
+            index={index}
+            bid={bid}
+            bidHoverRowIndex={bidHoverRowIndex}
+            setBidHoverRowIndex={setBidHoverRowIndex}
+          />
+        ))}
       </tbody>
     </table>
   );
 }
 
-// figure out how to make this work
-function AskRow() {
-  return <tr>Askrow</tr>;
+function AskRow({
+  index,
+  ask,
+  askHoverRowIndex,
+  setAskHoverRowIndex,
+}: {
+  index: number;
+  ask: { id: string; amount1: number; amount2: number };
+  askHoverRowIndex: number | undefined;
+  setAskHoverRowIndex: React.Dispatch<React.SetStateAction<number | undefined>>;
+}) {
+  const handleHoverStart = () => {
+    setAskHoverRowIndex(index);
+  };
+
+  const handeHoverEnd = () => {
+    setAskHoverRowIndex(undefined);
+  };
+
+  return (
+    <motion.tr
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handeHoverEnd}
+      data-hovered={
+        askHoverRowIndex !== undefined && index >= askHoverRowIndex
+          ? true
+          : null
+      }
+      className="group flex flex-row items-center gap-x-[10px] py-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
+    >
+      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
+        {(ask.amount2 / ask.amount1).toFixed(3)}
+      </th>
+      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+        {ask.amount1}
+      </th>
+      <th className="basis-[30%] text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+        {ask.amount2}
+      </th>
+    </motion.tr>
+  );
 }
 
-function BidRow() {
-  return <tr>Bidrow</tr>;
+function BidRow({
+  index,
+  bid,
+  bidHoverRowIndex,
+  setBidHoverRowIndex,
+}: {
+  index: number;
+  bid: { id: string; amount1: number; amount2: number };
+  bidHoverRowIndex: number | undefined;
+  setBidHoverRowIndex: React.Dispatch<React.SetStateAction<number | undefined>>;
+}) {
+  const handleHoverStart = () => {
+    setBidHoverRowIndex(index);
+  };
+
+  const handeHoverEnd = () => {
+    setBidHoverRowIndex(undefined);
+  };
+  return (
+    <motion.tr
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handeHoverEnd}
+      data-hovered={
+        bidHoverRowIndex !== undefined && index <= bidHoverRowIndex
+          ? true
+          : null
+      }
+      className="group flex flex-row items-center gap-x-[10px] py-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
+    >
+      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#a8dea3]">
+        {(bid.amount2 / bid.amount1).toFixed(3)}
+      </th>
+      <th className="basis-[30%] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+        {bid.amount1}
+      </th>
+      <th className="basis-[30%] text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+        {bid.amount2}
+      </th>
+    </motion.tr>
+  );
 }
