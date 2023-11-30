@@ -124,9 +124,9 @@ function OrderTable() {
   };
 
   return (
-    <table className="w-full px-[20px] py-[15px]">
+    <table className="w-full">
       <thead>
-        <tr className="mb-[10px] flex flex-row items-center gap-x-[10px] px-[20px] text-left">
+        <tr className="mx-[20px] mb-[10px] flex flex-row items-center gap-x-[10px] px-[5px] text-left">
           <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
             Price<span className="ml-[2px] opacity-60">USDC</span>
           </th>
@@ -147,9 +147,10 @@ function OrderTable() {
             ask={ask}
             askHoverRowIndex={askHoverRowIndex}
             setAskHoverRowIndex={setAskHoverRowIndex}
+            calculateStats={calculateAskRowStats}
           />
         ))}
-        <tr className="flex flex-row items-center gap-x-[10px] bg-[#f1f1f1] py-[5px] text-left">
+        <tr className="flex flex-row items-center gap-x-[10px] bg-[#f1f1f1] p-[5px] text-left">
           <th className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
             {price}
           </th>
@@ -173,11 +174,15 @@ function AskRow({
   ask,
   askHoverRowIndex,
   setAskHoverRowIndex,
+  calculateStats,
 }: {
   index: number;
   ask: { id: string; amount1: number; amount2: number };
   askHoverRowIndex: number | undefined;
   setAskHoverRowIndex: React.Dispatch<React.SetStateAction<number | undefined>>;
+  calculateStats: (
+    index: number | undefined,
+  ) => { amount1: number; amount2: number } | false;
 }) {
   const handleHoverStart = () => {
     setAskHoverRowIndex(index);
@@ -187,27 +192,68 @@ function AskRow({
     setAskHoverRowIndex(undefined);
   };
 
+  const isHovered = askHoverRowIndex !== undefined && index >= askHoverRowIndex;
+
+  const stats = isHovered && calculateStats(index);
+
   return (
-    <motion.tr
-      onHoverStart={handleHoverStart}
-      onHoverEnd={handeHoverEnd}
-      data-hovered={
-        askHoverRowIndex !== undefined && index >= askHoverRowIndex
-          ? true
-          : null
-      }
-      className="group flex flex-row items-center gap-x-[10px] py-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
-    >
-      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
-        {(ask.amount2 / ask.amount1).toFixed(3)}
-      </th>
-      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
-        {ask.amount1}
-      </th>
-      <th className="basis-1/3 text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
-        {ask.amount2}
-      </th>
-    </motion.tr>
+    <Tooltip.Provider delayDuration={0}>
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <motion.tr
+            onHoverStart={handleHoverStart}
+            onHoverEnd={handeHoverEnd}
+            data-hovered={isHovered ? true : null}
+            className="group flex flex-row items-center gap-x-[10px] p-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
+          >
+            <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
+              {(ask.amount2 / ask.amount1).toFixed(3)}
+            </th>
+            <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+              {ask.amount1}
+            </th>
+            <th className="basis-1/3 text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+              {ask.amount2}
+            </th>
+          </motion.tr>
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Content
+            className="flex flex-col gap-y-[12px] rounded-[8px] bg-[#f1f1f1] px-[15px] py-[10px] text-[15px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]"
+            side="left"
+            sideOffset={5}
+          >
+            <div className="flex flex-row items-center justify-between gap-x-[24px]">
+              <p className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+                Sum<span className="ml-[2px] opacity-60">SOL</span>
+              </p>
+              <p className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
+                {stats ? stats.amount1.toFixed(3) : null}
+              </p>
+            </div>
+
+            <div className="flex flex-row items-center justify-between gap-x-[24px]">
+              <p className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+                Sum<span className="ml-[2px] opacity-60">USDC</span>
+              </p>
+              <p className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
+                {stats ? stats.amount2.toFixed(3) : null}
+              </p>
+            </div>
+
+            <div className="flex flex-row items-center justify-between gap-x-[24px]">
+              <p className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+                Avg. Price<span className="ml-[2px] opacity-60">USDC</span>
+              </p>
+              <p className="text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#ff9a9a]">
+                {stats ? (stats.amount2 / stats.amount1).toFixed(3) : null}
+              </p>
+            </div>
+            <Tooltip.Arrow className="fill-[#f1f1f1]" />
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </Tooltip.Provider>
   );
 }
 
@@ -230,25 +276,40 @@ function BidRow({
     setBidHoverRowIndex(undefined);
   };
   return (
-    <motion.tr
-      onHoverStart={handleHoverStart}
-      onHoverEnd={handeHoverEnd}
-      data-hovered={
-        bidHoverRowIndex !== undefined && index <= bidHoverRowIndex
-          ? true
-          : null
-      }
-      className="group flex flex-row items-center gap-x-[10px] py-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
-    >
-      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#a8dea3]">
-        {(bid.amount2 / bid.amount1).toFixed(3)}
-      </th>
-      <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
-        {bid.amount1}
-      </th>
-      <th className="basis-1/3 text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
-        {bid.amount2}
-      </th>
-    </motion.tr>
+    <Tooltip.Provider>
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <motion.tr
+            onHoverStart={handleHoverStart}
+            onHoverEnd={handeHoverEnd}
+            data-hovered={
+              bidHoverRowIndex !== undefined && index <= bidHoverRowIndex
+                ? true
+                : null
+            }
+            className="group flex flex-row items-center gap-x-[10px] p-[5px] text-left data-[hovered]:bg-[#f1f1f1]"
+          >
+            <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#a8dea3]">
+              {(bid.amount2 / bid.amount1).toFixed(3)}
+            </th>
+            <th className="basis-1/3 text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+              {bid.amount1}
+            </th>
+            <th className="basis-1/3 text-right text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+              {bid.amount2}
+            </th>
+          </motion.tr>
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Content
+            className="rounded-[4px] bg-white px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]"
+            sideOffset={5}
+          >
+            Add to library
+            <Tooltip.Arrow className="fill-white" />
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </Tooltip.Provider>
   );
 }
