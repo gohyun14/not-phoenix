@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React, { Suspense } from 'react';
 
-import PairChart, { PairChartLoading } from "~/components/PairChart/PairChart";
-import RecentTrades from "~/components/RecentTrades/RecentTrades";
-import Orderbook from "~/components/Orderbook/Orderbook";
+import PairChart, { PairChartLoading } from '~/components/PairChart/PairChart';
+import RecentTrades from '~/components/RecentTrades/RecentTrades';
+import Orderbook from '~/components/Orderbook/Orderbook';
+import PlaceOrder from '~/components/PlaceOrder/PlaceOrder';
 
 export default function HomePage() {
   return (
@@ -22,13 +23,5 @@ export default function HomePage() {
       </div>
       <PlaceOrder />
     </main>
-  );
-}
-
-function PlaceOrder() {
-  return (
-    <div className="h-min w-[350px] rounded-[16px] bg-white px-[20px] py-[15px] shadow-[0px_10px_25px_-15px_rgba(0,0,0,0.3)]">
-      Place Order
-    </div>
   );
 }

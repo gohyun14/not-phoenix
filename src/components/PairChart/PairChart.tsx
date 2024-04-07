@@ -20,7 +20,7 @@ export default async function PairChart() {
           pairCode: "1",
           pairName: "SOL/USDC",
           lastTradedPrice: "30.672",
-          volume: "13.55M",
+          volume: "13.55M USDC",
           priceChange: "3.80%",
         };
         resolve(mockData);
