@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function PlaceOrder() {
@@ -43,7 +44,10 @@ export default function PlaceOrder() {
             </button>
           </div>
 
-          <div className="font-[500] text-black text-opacity-40"> | </div>
+          <div className="shrink-0 font-[500] text-black text-opacity-30">
+            {' '}
+            |{' '}
+          </div>
 
           <div className="flex flex-row items-center">
             <button
@@ -69,6 +73,90 @@ export default function PlaceOrder() {
             </button>
           </div>
         </div>
+
+        {/* order form */}
+        {orderType === 'limit' ? <LimitOrderForm /> : <MarketOrderForm />}
+      </div>
+    </div>
+  );
+}
+
+function LimitOrderForm() {
+  return (
+    <div>
+      <p className="pt-[20px] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+        Limit Price
+      </p>
+      <div className="relative my-[5px] w-full">
+        <input
+          inputMode="decimal"
+          placeholder="0.00"
+          spellCheck="false"
+          pattern="^[0-9]*[.,]?[0-9]*$"
+          className="w-full rounded-[16px] bg-black/5 py-[12px] pl-[45px] pr-[25px] text-[18px] font-[400] leading-[100%] tracking-[0.05rem] text-[#575151] focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
+
+        <img
+          src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
+          alt="USDC"
+          className="absolute left-[10px] top-1/2 h-[25px] w-[25px] translate-y-[-50%] transform rounded-full object-cover"
+        />
+      </div>
+
+      <p className="pt-[20px] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]">
+        Size
+      </p>
+      <p className="mt-[10px] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]/60">
+        Deposit Amount
+      </p>
+      <div className="relative my-[5px] w-full">
+        <input
+          inputMode="decimal"
+          placeholder="0.00"
+          spellCheck="false"
+          pattern="^[0-9]*[.,]?[0-9]*$"
+          className="w-full rounded-[16px] bg-black/5 py-[12px] pl-[45px] pr-[25px] text-[18px] font-[400] leading-[100%] tracking-[0.05rem] text-[#575151] focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
+
+        <img
+          src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
+          alt="USDC"
+          className="absolute left-[10px] top-1/2 h-[25px] w-[25px] translate-y-[-50%] transform rounded-full object-cover"
+        />
+      </div>
+
+      <p className="mt-[15px] text-[11.5px] font-[500] uppercase leading-[12px] tracking-[0.05em] text-[#575151]/60">
+        Receive up to
+      </p>
+      <div className="relative my-[5px] w-full">
+        <input
+          inputMode="decimal"
+          placeholder="0.00"
+          spellCheck="false"
+          pattern="^[0-9]*[.,]?[0-9]*$"
+          className="w-full rounded-[16px] bg-black/5 py-[12px] pl-[45px] pr-[25px] text-[18px] font-[400] leading-[100%] tracking-[0.05rem] text-[#575151] focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
+
+        <img
+          src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"
+          alt="SOL"
+          className="absolute left-[10px] top-1/2 h-[25px] w-[25px] translate-y-[-50%] transform rounded-full object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
+function MarketOrderForm() {
+  return (
+    <div>
+      <div>
+        <label htmlFor="limit-price">Price</label>
+        <input type="number" id="limit-price" />
+      </div>
+      <div>
+        <label htmlFor="limit-quantity">Quantity</label>
+        <input type="number" id="limit-quantity" />
       </div>
     </div>
   );
